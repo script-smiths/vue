@@ -1,21 +1,8 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/databinding">Data binding</router-link> |
-    <router-link to="/databinding-html">DataBindingHtml</router-link> |
-    <router-link to="/databinding-input-text">DataBindingInputText</router-link> |
-    <router-link to="/databinding-input-number">DataBindingInputNumber</router-link> |
-    <router-link to="/databinding-input-textarea">DataBindingInputTextarea</router-link> |
-    <router-link to="/databinding-input-select">DataBindingInputSelect</router-link> |
-    <router-link to="/databinding-input-checkbox">DataBindingInputCheckbox</router-link> |
-    <router-link to="/databinding-input-checkbox2">DataBindingInputCheckbox2</router-link> |
-    <router-link to="/databinding-input-radio">DataBindingInputRadio</router-link> |
-    <router-link to="/databinding-input-attribute">DataBindingInputAttribute</router-link> |
-    <router-link to="/databinding-input-button">DataBindingInputButton</router-link> |
-    <router-link to="/databinding-class">DataBindingClass</router-link> |
-    <router-link to="/databinding-class2">DataBindingClass2</router-link> |
-    <router-link to="/databinding-style">DataBindingStyle</router-link> |
-    <router-link to="/databinding-style2">DataBindingStyle2</router-link> |
+    <router-link to="/databinding">Data Binding~!~!~!~!</router-link> |
+    <router-link to="/databindinghtml">databindingHtml</router-link>
   </nav>
   <router-view/>
 </template>
@@ -42,5 +29,3 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
-<script setup lang="ts">
-</script>

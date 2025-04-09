@@ -1,16 +1,12 @@
 <template>
-  <div>
-    <input type="checkbox" v-model="checked" />
-    <p>체크 상태: {{ checked }}</p>
-  </div>
+    <div><label><input type="checkbox" v-model="checked" true-value="yes" false-value="no">{{ checked }}</label></div>
 </template>
-
 <script>
-export default {
-  data() {
-    return {
-      checked: false
+    export default {
+        data(){
+            return{
+                checked:true
+            }
+        }
     }
-  }
-}
 </script>

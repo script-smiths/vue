@@ -1,25 +1,46 @@
 <template>
-  <H1>
-    Hello, {{title}}!
-  </H1>
+    <div>
+        <h2>상품 계산기</h2>
+        <label>
+            가격:
+            <input type="number" v-model.number="price" />
+        </label>
+        <br />
+        <label>
+            수량:
+            <input type="number" v-model.number="quantity" />
+        </label>
+        <p>총 가격: {{ totalPrice }}</p>
+        <p>이전 가격: {{ oldVal }}</p>
+        <p>현재 가격: {{ price }}</p>
+    </div>
 </template>
+
 <script>
 export default {
-  name: ``,   // 컴포넌트 이름
-  components: {},   // 다른 컴포넌트 import, 배열로 저장
-  data() {     // html 과 자바스크립트 코드에서 사용할 데이터 변수 선언, this 를 통해 접근
-    return {
-      title: 'world',
-    };
-  },
-  setup() {
-  },    // 컴포지션 API
-  created() {
-  },   // 컴포넌트 생성되면 실행
-  mounted() {
-  },   // template에 정의된 html 코드가 랜더링된 후 실행
-  unmounted() {
-  },   // 컴포넌트에서 빠져나갈때 실행
-  methods: {}  // 컴포넌트 내에서 사용할 메소드 정의, this 를 통해 접근
-}
+    data() {
+        return {
+            price: 1000,
+            quantity: 2
+        };
+    },
+    computed: {
+        // 👉 화면에 보여줄 계산된 값
+        totalPrice() {
+            return this.price * this.quantity;
+        }
+    },
+    watch: {
+        // 👉 price가 바뀔 때마다 실행되는 반응형 함수
+        price(newVal, oldVal) {
+            this.oldVal = oldVal;
+        }
+    }
+};
 </script>
+
+<style scoped>
+input {
+    margin: 5px;
+}
+</style>
