@@ -23,9 +23,9 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GH_TOKEN }}
-          base: main
+#          base: main
           branch: ${{ github.ref_name }}
-          title: "[auto] ${{github.ref_name}} → main"
+          title: "[auto] ${{github.event.head_commit.message}}"
           body: |
             - 자동 PR: `${{ github.ref_name }} → main`
             - 커밋 메시지: `${{ github.event.head_commit.message }}`
