@@ -21,10 +21,17 @@
         <li><router-link to="/sw/databinding-class2">Class2</router-link></li>
         <li><router-link to="/sw/databinding-style">Style</router-link></li>
         <li><router-link to="/sw/databinding-style2">Style2</router-link></li>
+        <li><router-link to="/sw/event-click">EventClick</router-link></li>
+        <li><router-link to="/sw/event-change">EventChange</router-link></li>
+        <li><router-link to="/sw/computed-example">Computed</router-link></li>
+        <li><router-link to="/sw/computed-example2">Computed2</router-link></li>
+        <li><router-link to="/sw/computed-and-watch-example">ComputedAndWatch</router-link></li>
+        <li><router-link to="/sw/watch-example">Watch</router-link></li>
+        <li><router-link to="/sw/watch-example2">Watch2</router-link></li>
       </ul>
     </nav>
   </template>
-  
+
   <style scoped>
   .sw-menu {
     padding: 20px;
@@ -51,4 +58,3 @@
     color: #42b983;
   }
   </style>
-  

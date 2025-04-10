@@ -1,6 +1,6 @@
 // src/members/sw/router/index.js
 
-import HomeView from '@/members/sw/views/HomeView.vue'
+import SwHome from "@/members/sw/views/SwHome.vue";
 import AboutView from '@/members/sw/views/AboutView.vue'
 import DataBinding from '@/members/sw/views/DataBinding.vue'
 import DataBindingHtml from '@/members/sw/views/DataBindingHtml.vue'
@@ -17,9 +17,17 @@ import DataBindingClass from "@/members/sw/views/DataBindingClass.vue"
 import DataBindingClass2 from "@/members/sw/views/DataBindingClass2.vue"
 import DataBindingStyle from "@/members/sw/views/DataBindingStyle.vue"
 import DataBindingStyle2 from "@/members/sw/views/DataBindingStyle2.vue"
+import ComputedExample from "@/members/sw/views/ComputedExample.vue";
+import ComputedExample2 from "@/members/sw/views/ComputedExample2.vue";
+import ComputedAndWatch from "@/members/sw/views/ComputedAndWatch.vue";
+import EventClick from "@/members/sw/views/EventClick.vue";
+import EventChange from "@/members/sw/views/EventChange.vue";
+import WatchExample from "@/members/sw/views/WatchExample.vue";
+import WatchExample2 from "@/members/sw/views/WatchExample2.vue";
+
 
 const swRoutes = [
-    { path: '/sw', name: 'HomeView', component: HomeView },
+    { path: '/sw', name: 'swHome', component: SwHome },
     { path: '/sw/about', name: 'SwAbout', component: AboutView },
     { path: '/sw/databinding', name: 'SwDataBinding', component: DataBinding },
     { path: '/sw/databinding-html', name: 'SwDataBindingHtml', component: DataBindingHtml },
@@ -35,7 +43,14 @@ const swRoutes = [
     { path: '/sw/databinding-class', name: 'SwDataBindingClass', component: DataBindingClass },
     { path: '/sw/databinding-class2', name: 'SwDataBindingClass2', component: DataBindingClass2 },
     { path: '/sw/databinding-style', name: 'SwDataBindingStyle', component: DataBindingStyle },
-    { path: '/sw/databinding-style2', name: 'SwDataBindingStyle2', component: DataBindingStyle2 }
+    { path: '/sw/databinding-style2', name: 'SwDataBindingStyle2', component: DataBindingStyle2 },
+    { path: '/sw/computed-example', name: 'ComputedExample', component: ComputedExample },
+    { path: '/sw/computed-example2', name: 'ComputedExample2', component: ComputedExample2 },
+    { path: '/sw/computed-and-watch-example', name: 'ComputedAndWatchExample', component: ComputedAndWatch },
+    { path: '/sw/event-click', name: 'EventClick', component: EventClick },
+    { path: '/sw/event-change', name: 'EventChange', component: EventChange },
+    { path: '/sw/watch-example', name: 'WatchExample', component: WatchExample },
+    { path: '/sw/watch-example2', name: 'WatchExample2', component: WatchExample2 },
 ]
 
 export default swRoutes
