@@ -5,7 +5,7 @@
 export default {
   data() {
     return {
-      firstName: 'Seungwon!@@1',
+      firstName: 'Seungwon!@@1dd',
       lastName: 'Go',
       fullName: ''
     };
