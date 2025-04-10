@@ -10,6 +10,15 @@
   </template>
   
   <style scoped>
+  .cm-menu {
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    height: 100%;
+    overflow-y: auto;
+  }
+  .cm-menu h3 {
+    margin-bottom: 10px;
+  }
   .cm-menu ul {
     list-style: none;
     padding: 0;
