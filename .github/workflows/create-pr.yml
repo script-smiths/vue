@@ -23,7 +23,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GH_TOKEN }}
-#          base: main
+          base: main
           branch: ${{ github.ref_name }}
           title: "[auto] ${{github.event.head_commit.message}}"
           body: |
@@ -35,8 +35,8 @@ jobs:
           draft: false
 
       - name: Enable Auto Merge
-        #        if: contains(github.event.pull_request.labels.*.name, 'auto-merge')
-        if: steps.cpr.outputs.pull-request-operation == 'created'
+        if: contains(github.event.pull_request.labels.*.name, 'auto-merge')
+#        if: steps.cpr.outputs.pull-request-operation == 'created'
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
