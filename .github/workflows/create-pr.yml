@@ -3,8 +3,8 @@ name: Create Pull Request to Main
 on:
   push:
     branches:
-      - 'sw/**'
-      - 'cm/**'
+      - 'sw**'
+      - 'cm**'
       
 jobs:
   create-pr:
