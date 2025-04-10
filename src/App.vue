@@ -16,6 +16,15 @@
     <router-link to="/databinding-class2">DataBindingClass2</router-link> |
     <router-link to="/databinding-style">DataBindingStyle</router-link> |
     <router-link to="/databinding-style2">DataBindingStyle2</router-link> |
+    <router-link to="/databinding-list">DataBindingList</router-link> |
+    <router-link to="/renderingvif">RenderingVIf</router-link> |
+    <router-link to="/eventclick">EventClick</router-link> |
+    <router-link to="/computed">Computed</router-link> |
+    <router-link to="/computed2">Computed2</router-link> |
+    <router-link to="/computed-lifecycle-hook">ComputedLifeCycleHook</router-link> |
+    <router-link to="/watch">Watch</router-link> |
+    <router-link to="/watch2">Watch2</router-link> |
+    <router-link to="/computed-watch">ComputedAndWatch</router-link> |
   </nav>
   <router-view/>
 </template>

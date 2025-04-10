@@ -15,6 +15,7 @@ import DataBindingClass from "@/views/DataBindingClass.vue";
 import DataBindingClass2 from "@/views/DataBindingClass2.vue";
 import DataBindingStyle from "@/views/DataBindingStyle.vue";
 import DataBindingStyle2 from "@/views/DataBindingStyle2.vue";
+import DataBindingList from "@/views/DataBindingList.vue";
 
 const routes = [
   {
@@ -104,6 +105,51 @@ const routes = [
     path: '/databinding-style2',
     name: 'Databindingstyle2',
     component: DataBindingStyle2
+  },
+  {
+    path: '/databinding-list',
+    name: 'Databindinglist',
+    component: DataBindingList
+  },
+  {
+    path: '/renderingvif',
+    name: 'RenderingVif',
+    component: () => import( /* webpackChunkName: "renderingvif" */ '../views/RenderingVIf.vue')
+  },
+  {
+    path: '/eventclick',
+    name: 'EventClick',
+    component: () => import( /* webpackChunkName: "eventclick" */ '../views/EventClick.vue')
+  },
+  {
+    path: '/computed',
+    name: 'Computed',
+    component: () => import( /* webpackChunkName: "computedEx" */ '../views/ComputedExample.vue')
+  },
+  {
+    path: '/computed2',
+    name: 'Computed2',
+    component: () => import( /* webpackChunkName: "computedEx2" */ '../views/ComputedExample2.vue')
+  },
+  {
+    path: '/computed-lifecycle-hook',
+    name: 'ComputedLifecycleHook',
+    component: () => import( /* webpackChunkName: "computedEx2" */ '../views/ComputedLifeCycleHook.vue')
+  },
+  {
+    path: '/watch',
+    name: 'Watch',
+    component: () => import( /* webpackChunkName: "watchEx" */ '../views/WatchExample.vue')
+  },
+  {
+    path: '/watch2',
+    name: 'Watch2',
+    component: () => import( /* webpackChunkName: "watchEx2" */ '../views/WatchExample2.vue')
+  },
+  {
+    path: '/computed-watch',
+    name: 'ComputedWatch',
+    component: () => import( /* webpackChunkName: "computedAndWatch" */ '../views/ComputedAndWatch.vue')
   }
 ]
 
