@@ -25,7 +25,7 @@ jobs:
         id: token-map
         run: |
           ACTOR="${{ github.actor }}"
-          TOKEN_VAR=$(yq ".\"$ACTOR\"" .github/user-token-map.yml)
+          TOKEN_VAR=$(yq ".\"$ACTOR\"" .github/workflows/user-token-map.yml)
           echo "token_var=$TOKEN_VAR" >> $GITHUB_OUTPUT
 
       - name: Set reviewers except self
