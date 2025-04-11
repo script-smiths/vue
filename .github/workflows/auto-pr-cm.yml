@@ -42,7 +42,7 @@ jobs:
         with:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           committer: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          token: ${{ secrets.steps.token-map.outputs.token_var }}
+          token: ${{ secrets[steps.token-map.outputs.token_var] }}
           base: main
           branch: ${{ github.event.ref }}
           title: "[auto] ${{ github.event.head_commit.message }}"
@@ -58,8 +58,8 @@ jobs:
         if: steps.create_pr.outputs.pull-request-operation == 'created' || steps.create_pr.outputs.pull-request-operation == 'updated'
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.steps.token-map.outputs.token_var }}
+          token: ${{ secrets[steps.token-map.outputs.token_var] }}
           pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
           merge-method: squash
         env:
-          GH_TOKEN: ${{ secrets.steps.token-map.outputs.token_var }}  # 핵심: gh 명령어용
+          GH_TOKEN: ${{ secrets[steps.token-map.outputs.token_var] }}  # 핵심: gh 명령어용
