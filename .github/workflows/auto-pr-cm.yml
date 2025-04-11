@@ -40,11 +40,8 @@ jobs:
         id: create_pr
         uses: peter-evans/create-pull-request@v7
         with:
-<<<<<<<<< Temporary merge branch 1
-=========
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           committer: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
->>>>>>>>> Temporary merge branch 2
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
           branch: ${{ github.event.ref }}  # e.g., refs/heads/cm-feature
@@ -55,14 +52,6 @@ jobs:
           labels: auto-merge
           assignees: ${{ github.actor }}
           draft: false
-
-    #   - name: Enable Auto Merge
-    #     if: steps.create_pr.outputs.pull-request-operation == 'created'
-    #     uses: peter-evans/enable-pull-request-automerge@v3
-    #     with:
-    #       token: ${{ secrets.GH_TOKEN }}
-    #       pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
-    #       merge-method: squash
 
       - name: Enable Auto Merge
         if: steps.create_pr.outputs.pull-request-operation == 'created' || steps.create_pr.outputs.pull-request-operation == 'updated'
