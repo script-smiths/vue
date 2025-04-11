@@ -23,8 +23,7 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           base: main
-          branch: ${{ github.ref_name }}
-          push-to-fork: false
+          branch: ${{ github.event.ref }}  # refs/heads/cm
           title: "[auto] ${{ github.event.head_commit.message }}"
           body: |
             자동 PR 생성: `${{ github.ref_name }} → main`
