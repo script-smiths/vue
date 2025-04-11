@@ -3,9 +3,8 @@ name: Auto PR from cm Branch
 on:
   push:
     branches:
-      - "cm**"
-      - "sw**"
-
+      - 'cm**'
+      - 'sw**'
 permissions:
   contents: write
   pull-requests: write
@@ -33,6 +32,8 @@ jobs:
         id: create_pr
         uses: peter-evans/create-pull-request@v7
         with:
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          committer: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
           branch: ${{ github.event.ref }}
