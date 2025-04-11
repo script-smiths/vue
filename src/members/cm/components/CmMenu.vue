@@ -1,7 +1,7 @@
 <!-- src/members/cm/components/CmMenu.vue -->
 <template>
     <nav class="cm-menu">
-      <h3>👨‍💻 CM 메뉴</h3>
+      <h3>👨‍💻 CM 메뉴!</h3>
       <ul>
         <li><router-link to="/cm">Home</router-link></li>
         <li><router-link to="/cm/databinding">Data Binding</router-link></li>
