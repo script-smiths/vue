@@ -3,8 +3,8 @@ name: Auto PR from cm Branch
 on:
   push:
     branches:
-      - 'cm**'
-      - 'sw**'
+      - "cm**"
+      - "sw**"
 
 permissions:
   contents: write
@@ -20,13 +20,18 @@ jobs:
 
       - name: Checkout Code
         uses: actions/checkout@v3
-
+            
       - name: Load token map
         id: token-map
         run: |
           ACTOR="${{ github.actor }}"
-          TOKEN_VAR=$(yq ".\"$ACTOR\"" .github/workflows/user-token-map.yml)
-          echo token_var=$TOKEN_VAR >> $GITHUB_OUTPUT
+          TOKEN_VAR=$(yq ".\"$ACTOR\"" .github/workflows/user-token-map.yml | tr -d '"')  # 쌍따옴표 제거!
+          echo "token_var=$TOKEN_VAR"
+          echo "token_var=$TOKEN_VAR" >> $GITHUB_OUTPUT
+
+      - name: Debug token variable
+        run: |
+          echo "✅ 최종 사용될 secret key 이름: ${{ steps.token-map.outputs.token_var }}"
 
       - name: Set reviewers except self
         id: reviewers
@@ -62,4 +67,4 @@ jobs:
           pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
           merge-method: squash
         env:
-          GH_TOKEN: ${{ secrets[steps.token-map.outputs.token_var] }}  # 핵심: gh 명령어용
+          GH_TOKEN: ${{ secrets[steps.token-map.outputs.token_var] }} # 핵심: gh 명령어용
