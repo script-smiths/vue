@@ -4,6 +4,7 @@
     <input v-model="lastName" placeholder="성" />
 
     <p>전체 이름: {{ fullName }}</p>
+    <p>콘솔에서 확인</p>
   </div>
 </template>
 

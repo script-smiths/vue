@@ -1,5 +1,6 @@
 <template>
   <input v-model="age" type="number" />
+  <p>콘솔에서 확인</p>
 </template>
 
 <script>
