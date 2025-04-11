@@ -24,6 +24,8 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           base: main
           branch: ${{ github.ref_name }}
+          push-to-fork: false
+          create-when: always
           title: "[auto] ${{ github.event.head_commit.message }}"
           body: |
             자동 PR 생성: `${{ github.ref_name }} → main`
@@ -32,10 +34,19 @@ jobs:
           assignees: ${{ github.actor }}
           draft: false
 
+    #   - name: Enable Auto Merge
+    #     if: steps.create_pr.outputs.pull-request-operation == 'created'
+    #     uses: peter-evans/enable-pull-request-automerge@v3
+    #     with:
+    #       token: ${{ secrets.GH_TOKEN }}
+    #       pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
+    #       merge-method: squash
+
       - name: Enable Auto Merge
-        if: steps.create_pr.outputs.pull-request-operation == 'created'
+        if: steps.create_pr.outputs.pull-request-operation == 'created' || steps.create_pr.outputs.pull-request-operation == 'updated'
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
           pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
           merge-method: squash
+
