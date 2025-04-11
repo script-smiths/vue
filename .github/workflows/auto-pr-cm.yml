@@ -25,7 +25,6 @@ jobs:
           base: main
           branch: ${{ github.ref_name }}
           push-to-fork: false
-          create-when: always
           title: "[auto] ${{ github.event.head_commit.message }}"
           body: |
             자동 PR 생성: `${{ github.ref_name }} → main`
