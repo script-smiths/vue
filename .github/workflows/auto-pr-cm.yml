@@ -42,15 +42,16 @@ jobs:
         with:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           committer: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets[steps.token-map.outputs.token_var] }}
           base: main
-          branch: ${{ github.event.ref }}  # e.g., refs/heads/cm-feature
+          branch: ${{ github.event.ref }}
           title: "[auto] ${{ github.event.head_commit.message }}"
           body: |
             자동 PR 생성: `${{ github.ref_name }} → main`
             커밋 메시지: `${{ github.event.head_commit.message }}`
           labels: auto-merge
           assignees: ${{ github.actor }}
+          reviewers: ${{ steps.reviewers.outputs.filtered }}
           draft: false
 
       - name: Enable Auto Merge
@@ -60,3 +61,5 @@ jobs:
           token: ${{ secrets[steps.token-map.outputs.token_var] }}
           pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
           merge-method: squash
+        env:
+          GH_TOKEN: ${{ secrets[steps.token-map.outputs.token_var] }}  # 핵심: gh 명령어용
