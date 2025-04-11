@@ -1,0 +1,53 @@
+name: Auto PR And Merge
+
+on:
+  push:
+    branches:
+      - 'cm**'
+      - 'sw**'
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set reviewers except self
+        id: reviewers
+        run: |
+            ALL_REVIEWERS="${{ vars.REVIEWERS }}"
+            ACTOR="${{ github.actor }}"
+            FILTERED=$(echo $ALL_REVIEWERS | tr ',' '\n' | grep -v "^$ACTOR$" | paste -sd "," -)
+            echo "filtered=$FILTERED" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request to main
+        id: create_pr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          committer: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+          author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          branch: ${{ github.event.ref }}  # refs/heads/cm
+          title: "[auto] ${{ github.event.head_commit.message }}"
+          body: |
+            자동 PR 생성: `${{ github.ref_name }} → main`
+            커밋 메시지: `${{ github.event.head_commit.message }}`
+          labels: auto-merge
+          assignees: ${{ github.actor }}
+          reviewers: ${{ steps.reviewers.outputs.filtered }}
+          draft: false
+
+      - name: Enable Auto Merge
+        if: steps.create_pr.outputs.pull-request-operation == 'created' || steps.create_pr.outputs.pull-request-operation == 'updated'
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
+          merge-method: squash
+
