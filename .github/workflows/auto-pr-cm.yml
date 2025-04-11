@@ -17,6 +17,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Set reviewers except self
+        id: reviewers
+        run: |
+            ALL_REVIEWERS="${{ vars.REVIEWERS }}"
+            ACTOR="${{ github.actor }}"
+            FILTERED=$(echo $ALL_REVIEWERS | tr ',' '\n' | grep -v "^$ACTOR$" | paste -sd "," -)
+            echo "filtered=$FILTERED" >> $GITHUB_OUTPUT
+
       - name: Create Pull Request to main
         id: create_pr
         uses: peter-evans/create-pull-request@v7
@@ -30,7 +38,7 @@ jobs:
             커밋 메시지: `${{ github.event.head_commit.message }}`
           labels: auto-merge
           assignees: ${{ github.actor }}
-          reviewers: ${{ vars.REVIEWERS }}
+          reviewers: ${{ steps.reviewers.outputs.filtered }}
           draft: false
 
     #   - name: Enable Auto Merge
