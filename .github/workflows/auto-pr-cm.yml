@@ -40,9 +40,12 @@ jobs:
         id: create_pr
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets[steps.token-map.outputs.token_var] }}
+<<<<<<<<< Temporary merge branch 1
+=========
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           committer: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+>>>>>>>>> Temporary merge branch 2
+          token: ${{ secrets.GITHUB_TOKEN }}
           base: main
           branch: ${{ github.event.ref }}  # e.g., refs/heads/cm-feature
           title: "[auto] ${{ github.event.head_commit.message }}"
