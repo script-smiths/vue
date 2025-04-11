@@ -3,8 +3,9 @@ name: Auto PR from cm Branch
 on:
   push:
     branches:
-      - 'cm**'
-      - 'sw**'
+      - "cm**"
+      - "sw**"
+
 permissions:
   contents: write
   pull-requests: write
@@ -14,26 +15,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Install yq
+        run: sudo apt-get update && sudo apt-get install -y yq
+
       - name: Checkout Code
         uses: actions/checkout@v3
+            
+      - name: Load token map
+        id: token-map
+        run: |
+          ACTOR="${{ github.actor }}"
+          TOKEN_VAR=$(yq ".\"$ACTOR\"" .github/workflows/user-token-map.yml | tr -d '"')  # 쌍따옴표 제거!
+          echo "token_var=$TOKEN_VAR"
+          echo "token_var=$TOKEN_VAR" >> $GITHUB_OUTPUT
+
+      - name: Debug token variable
+        run: |
+          echo "✅ 최종 사용될 secret key 이름: ${{ steps.token-map.outputs.token_var }}"
 
       - name: Set reviewers except self
         id: reviewers
         run: |
-            ALL_REVIEWERS="${{ vars.REVIEWERS }}"
-            ACTOR="${{ github.actor }}"
-            FILTERED=$(echo $ALL_REVIEWERS | tr ',' '\n' | grep -v "^$ACTOR$" | paste -sd "," -)
-            echo "filtered=$FILTERED" >> $GITHUB_OUTPUT
+          ALL_REVIEWERS="${{ vars.REVIEWERS }}"
+          ACTOR="${{ github.actor }}"
+          FILTERED=$(echo "$ALL_REVIEWERS" | tr ',' '\n' | grep -v "^$ACTOR$" | paste -sd "," -)
+          echo "filtered=$FILTERED" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request to main
         id: create_pr
         uses: peter-evans/create-pull-request@v7
         with:
-          committer: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
-          author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
-          token: ${{ secrets.GITHUB_TOKEN }}
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          committer: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          token: ${{ secrets[steps.token-map.outputs.token_var] }}
           base: main
-          branch: ${{ github.event.ref }}  # refs/heads/cm
+          branch: ${{ github.event.ref }}
           title: "[auto] ${{ github.event.head_commit.message }}"
           body: |
             자동 PR 생성: `${{ github.ref_name }} → main`
@@ -47,7 +63,8 @@ jobs:
         if: steps.create_pr.outputs.pull-request-operation == 'created' || steps.create_pr.outputs.pull-request-operation == 'updated'
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets[steps.token-map.outputs.token_var] }}
           pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
           merge-method: squash
-
+        env:
+          GH_TOKEN: ${{ secrets[steps.token-map.outputs.token_var] }} # 핵심: gh 명령어용
