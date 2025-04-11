@@ -5,6 +5,7 @@ on:
     branches:
       - 'cm**'
       - 'sw**'
+
 permissions:
   contents: write
   pull-requests: write
@@ -20,23 +21,30 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Load token map
+        id: token-map
+        run: |
+          ACTOR="${{ github.actor }}"
+          TOKEN_VAR=$(yq ".\"$ACTOR\"" .github/user-token-map.yml)
+          echo "token_var=$TOKEN_VAR" >> $GITHUB_OUTPUT
+
       - name: Set reviewers except self
         id: reviewers
         run: |
-            ALL_REVIEWERS="${{ vars.REVIEWERS }}"
-            ACTOR="${{ github.actor }}"
-            FILTERED=$(echo $ALL_REVIEWERS | tr ',' '\n' | grep -v "^$ACTOR$" | paste -sd "," -)
-            echo "filtered=$FILTERED" >> $GITHUB_OUTPUT
+          ALL_REVIEWERS="${{ vars.REVIEWERS }}"
+          ACTOR="${{ github.actor }}"
+          FILTERED=$(echo "$ALL_REVIEWERS" | tr ',' '\n' | grep -v "^$ACTOR$" | paste -sd "," -)
+          echo "filtered=$FILTERED" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request to main
         id: create_pr
         uses: peter-evans/create-pull-request@v7
         with:
+          token: ${{ secrets[steps.token-map.outputs.token_var] }}
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           committer: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          token: ${{ secrets.GITHUB_TOKEN }}
           base: main
-          branch: ${{ github.event.ref }}
+          branch: ${{ github.event.ref }}  # e.g., refs/heads/cm-feature
           title: "[auto] ${{ github.event.head_commit.message }}"
           body: |
             자동 PR 생성: `${{ github.ref_name }} → main`
@@ -50,8 +58,6 @@ jobs:
         if: steps.create_pr.outputs.pull-request-operation == 'created' || steps.create_pr.outputs.pull-request-operation == 'updated'
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets[steps.token-map.outputs.token_var] }}
           pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
           merge-method: squash
-        env:
-          GH_TOKEN: ${{ secrets[steps.token-map.outputs.token_var] }} # 핵심: gh 명령어용
