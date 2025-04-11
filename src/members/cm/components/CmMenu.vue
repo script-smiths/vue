@@ -5,6 +5,7 @@
       <ul>
         <li><router-link to="/cm">Home</router-link></li>
         <li><router-link to="/cm/databinding">Data Binding</router-link></li>
+        <li><router-link to="/cm/databindinglist">Data BindingList</router-link></li>
       </ul>
     </nav>
   </template>
