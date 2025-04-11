@@ -20,7 +20,7 @@ jobs:
 
       - name: Checkout Code
         uses: actions/checkout@v3
-            
+
       - name: Load token map
         id: token-map
         run: |
@@ -29,9 +29,6 @@ jobs:
           echo "token_var=$TOKEN_VAR"
           echo "token_var=$TOKEN_VAR" >> $GITHUB_OUTPUT
 
-      - name: Debug token variable
-        run: |
-          echo "✅ 최종 사용될 secret key 이름: ${{ steps.token-map.outputs.token_var }}"
 
       - name: Set reviewers except self
         id: reviewers
