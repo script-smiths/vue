@@ -21,7 +21,7 @@ jobs:
         id: create_pr
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           base: main
           branch: ${{ github.event.ref }}  # refs/heads/cm
           title: "[auto] ${{ github.event.head_commit.message }}"
@@ -30,6 +30,7 @@ jobs:
             커밋 메시지: `${{ github.event.head_commit.message }}`
           labels: auto-merge
           assignees: ${{ github.actor }}
+          reviewers: ${{ vars.REVIEWERS }}
           draft: false
 
     #   - name: Enable Auto Merge
@@ -44,7 +45,7 @@ jobs:
         if: steps.create_pr.outputs.pull-request-operation == 'created' || steps.create_pr.outputs.pull-request-operation == 'updated'
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
           merge-method: squash
 
