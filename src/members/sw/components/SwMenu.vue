@@ -28,6 +28,7 @@
         <li><router-link to="/sw/computed-and-watch-example">ComputedAndWatch</router-link></li>
         <li><router-link to="/sw/watch-example">Watch</router-link></li>
         <li><router-link to="/sw/watch-example2">Watch2</router-link></li>
+        <li><router-link to="/sw/databinding-list2">DataBindingList2</router-link></li>
       </ul>
     </nav>
   </template>
