@@ -1,29 +1,40 @@
 <template>
-    <div>
-      <h2>상품 가격 변경 감지!</h2>
-  
-      <label>
-        가격:
-        <input type="number" v-model.number="price" />
-      </label>
-  
-      <p>이전 가격: {{ oldPrice }}</p>
-      <p>현재 가격: {{ price }}</p>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
+  <div>
+    <input type="text" v-model="Color" placeholder="big, small, red 등 입력해봐" />
+    <p :style="textStyle">Hello, Vue!</p>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      Color: "", // 사용자의 입력값
+    };
+  },
+  computed: {
+    textStyle() {
+      // 입력값에 따라 스타일 변경
+      let fontSize = "16px";
+      let color = "black";
+
+      if (this.Color === "big") {
+        fontSize = "32px";
+      } else if (this.Color === "small") {
+        fontSize = "12px";
+      }
+
+      if (this.Color === "red") {
+        color = "red";
+      } else if (this.Color === "blue") {
+        color = "blue";
+      }
+
       return {
-        price: 1000,
-        oldPrice: null
+        fontSize,
+        color,
       };
     },
-    watch: {
-      price(newVal, oldVal) {
-        this.oldPrice = oldVal;
-      }
-    }
-  }
-  </script>  
+  },
+};
+</script>
