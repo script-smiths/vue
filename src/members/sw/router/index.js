@@ -48,6 +48,26 @@ const swRoutes = [
     {path: '/sw/watch-example', name: 'SwWatchExample', component: loadView('WatchExample')},
     {path: '/sw/watch-example2', name: 'SwWatchExample2', component: loadView('WatchExample2')},
     {path: '/sw/databinding-list2', name: 'SwDataBindingList2', component: loadView('DataBindingList2')},
+    {
+        path: '/sw/nested',
+        name: 'SwNested',
+        component: () => import(/* webpackChunkName: "nestedComponent" */ '@/members/sw/components/NestedComponent.vue')
+    },
+    {
+        path: '/sw/nested2',
+        name: 'SwNested2',
+        component: () => import(/* webpackChunkName: "nestedComponent2" */ '@/members/sw/components/NestedComponent2.vue')
+    },
+    {
+        path: '/sw/parent-trigger-child-event',
+        name: 'SwParentTriggerChildEvent',
+        component: loadView('ParentComponent')
+    },
+    {
+        path: '/sw/parent-sync-child',
+        name: 'SwParentSyncChild',
+        component: loadView('ParentComponent5')
+    },
 ]
 
 export default swRoutes

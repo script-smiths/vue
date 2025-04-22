@@ -29,6 +29,10 @@
         <li><router-link to="/sw/watch-example">Watch</router-link></li>
         <li><router-link to="/sw/watch-example2">Watch2</router-link></li>
         <li><router-link to="/sw/databinding-list2">DataBindingList2</router-link></li>
+        <li><router-link to="/sw/nested">Nested</router-link></li>
+        <li><router-link to="/sw/nested2">Nested2</router-link></li>
+        <li><router-link to="/sw/parent-trigger-child-event">parent-trigger-child-event</router-link></li>
+        <li><router-link to="/sw/parent-sync-child">parent-sync-child</router-link></li>
       </ul>
     </nav>
   </template>
