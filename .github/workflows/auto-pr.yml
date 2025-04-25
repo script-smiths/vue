@@ -1,4 +1,4 @@
-name: Auto PR from cm Branch
+name: Auto PR
 
 on:
   push:
